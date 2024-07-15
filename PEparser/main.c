@@ -182,9 +182,6 @@ int main(int argc,char* argv[])
 		sectionheader = (PBYTE)sectionheader + sizeof(IMAGE_SECTION_HEADER);
 	}
 
-	//DWORD importoffset = (DWORD)dosheader + importsection->PointerToRawData;
-	//PIMAGE_IMPORT_DESCRIPTOR importable = (PIMAGE_IMPORT_DESCRIPTOR)(importoffset + (imageheader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress - importsection->VirtualAddress));
-	
 	DWORD importoffset = importtable_rva - importsection->VirtualAddress + importsection->PointerToRawData;
 	PIMAGE_IMPORT_DESCRIPTOR importtable = (PIMAGE_IMPORT_DESCRIPTOR)((PBYTE)dosheader + importoffset);
 	printf("\n\n####### IMPORT ADDRESS TABLE #######\n");
@@ -203,7 +200,6 @@ int main(int argc,char* argv[])
 		}
 		importtable++;
 		printf("\n");
-		//importtable = importtable + sizeof(IMAGE_IMPORT_DESCRIPTOR);
 	}
 
 	return 0;
